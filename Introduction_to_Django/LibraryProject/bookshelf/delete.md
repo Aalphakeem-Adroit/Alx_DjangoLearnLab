@@ -1,20 +1,24 @@
-### 📄 `delete.md`
-```markdown
 # Delete Operation
-
-from bookshelf.models import Book
 
 ## Command
 ```python
+from bookshelf.models import Book
 retrieved_book.delete()
+```
 
-Expected Output:
+## Expected Output:
+```
 (1, {'bookshelf.Book': 1})
 # The book instance has been deleted.
+```
 
-Verification:
+## Verification:
+```python
 Book.objects.all()
+```
 
-Expected Output:
+## Expected Output:
+```shell
 <QuerySet []>
 # Empty queryset confirms deletion.
+```
