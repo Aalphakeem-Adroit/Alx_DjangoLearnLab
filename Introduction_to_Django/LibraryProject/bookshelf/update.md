@@ -1,5 +1,3 @@
-### 📄 `update.md`
-```markdown
 # Update Operation
 
 ## Command
@@ -7,7 +5,9 @@
 retrieved_book.title = "Nineteen Eighty-Four"
 retrieved_book.save()
 print(retrieved_book.title, retrieved_book.author)
+```
 
-
-Expected Output:
+## Expected Output:
+```shell
 Nineteen Eighty-Four George Orwell
+```
