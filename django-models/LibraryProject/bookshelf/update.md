@@ -1,9 +1,6 @@
-# Update Operation
+<!-- Commands used -->
+book.title = "Nineteen Eighty-Four"
 
-```python
->>> from bookshelf.models import Book
->>> book = Book.objects.get(id=1)
->>> book.title = "Nineteen Eighty-Four"
->>> book.save()
->>> book.title
-'Nineteen Eighty-Four'
+
+<!-- Comments gotten from creating a book. -->
+No comments was given
