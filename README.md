@@ -84,7 +84,7 @@ Here’s a general workflow to run any of the projects in this repo:
    ```bash
    git clone https://github.com/Aalphakeem-Adroit/Alx_DjangoLearnLab.git
    cd Alx_DjangoLearnLab
-````
+    ````
 
 2. **Choose a project folder** (e.g. `django_blog`, `api_project`, etc.)
 
