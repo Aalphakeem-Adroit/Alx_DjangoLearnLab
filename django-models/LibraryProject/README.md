@@ -14,4 +14,4 @@ A brief one-paragraph description of what this project does, who it’s for, and
 
 1. Clone the repo  
    ```bash
-   git clone https://github.com/Ricsie11/Alx_DjangoLearnLab.git
+   git clone https://github.com/Aalphakeem-Adroit/Alx_DjangoLearnLab.git

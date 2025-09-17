@@ -70,3 +70,8 @@ class Book(models.Model):
             ("can_change_book", "Can change book"),
             ("can_delete_book", "Can delete book"),
         ]
+
+
+
+
+
