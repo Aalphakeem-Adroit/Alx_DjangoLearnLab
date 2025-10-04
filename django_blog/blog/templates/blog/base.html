@@ -10,6 +10,10 @@
 </head>
 <body>
     <header>
+        <form method="get" action="{% url 'search_posts' %}" style="display:inline;">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Go</button>
+        </form>
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>

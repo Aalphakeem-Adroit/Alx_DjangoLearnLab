@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Results</h2>
+
+    <form method="get" action="{% url 'search_posts' %}">
+        <input type="text" name="q" placeholder="Search posts..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    {% if query %}
+        <h3>Results for "{{ query }}"</h3>
+        {% if results %}
+            <ul>
+                {% for post in results %}
+                    <li>
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                        <p>{{ post.content|truncatewords:20 }}</p>
+                            {% if post.tags.exists %}
+                                <p>
+                                    {% for tag in post.tags.all %}
+                                        <a href="{% url 'posts_by_tag' tag.name %}" class="badge bg-secondary">{{ tag.name }}</a>
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% else %}
+        <p>Enter a keyword to search.</p>
+    {% endif %}
+</div>
+{% endblock %}
