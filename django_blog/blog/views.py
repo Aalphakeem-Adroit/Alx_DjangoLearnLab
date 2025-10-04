@@ -1,15 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
-from .forms import ProfileForm
-from django.http import HttpResponse
+from .forms import ProfileForm, CommentForm
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from .models import Post
+from .models import Post, Comment
 
 # Create your views here.
 
@@ -61,6 +61,49 @@ def profile_view(request):
     return render(request, 'blog/profile.html', {'form': form})
 
 
+@login_required
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('post_detail', pk=post.id)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment_form.html', {'form': form, 'post': post})
+
+
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this comment.")
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=comment.post.id)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'blog/comment_form.html', {'form': form, 'comment': comment})
+
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this comment.")
+    if request.method == 'POST':
+        post_id = comment.post.id
+        comment.delete()
+        return redirect('post_detail', pk=post_id)
+    return render(request, 'blog/comment_confirm_delete.html', {'comment': comment})
+
+
 # Blog Post Views
 
 class PostListView(ListView):
@@ -102,3 +145,10 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+
+
+class BlogIndexView(ListView):
+    model = Post
+    template_name = 'blog/index.html'  # path to your template
+    context_object_name = 'posts'
+    ordering = ['-created_at']  # newest first
