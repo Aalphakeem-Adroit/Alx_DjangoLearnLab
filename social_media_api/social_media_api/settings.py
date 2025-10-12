@@ -26,9 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['alphakeemadroit.com.ng', 'www.alphakeemadroit.com.ng']
+# ALLOWED_HOSTS = ['alphakeemadroit.com.ng', 'www.alphakeemadroit.com.ng']
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Security Settings
 SECURE_BROWSER_XSS_FILTER = True
