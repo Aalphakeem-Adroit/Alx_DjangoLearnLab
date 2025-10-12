@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
-from .models import User
+from .models import CustomUser
 
 User = get_user_model()
 
@@ -27,7 +27,7 @@ class LoginView(generics.GenericAPIView):
 
 
 class UserDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
