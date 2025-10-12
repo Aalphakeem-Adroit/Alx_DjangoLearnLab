@@ -17,7 +17,7 @@ This project demonstrates clean API design using Django REST Framework (DRF) and
    * [User Endpoints](#user-endpoints)
    * [Authentication Endpoints](#authentication-endpoints)
 7. [User Model Overview](#user-model-overview)
-8. [Deployment (Coming Soon)](#deployment-coming-soon)
+8. [Deployment (Coming Soon)](#deployment)
 9. [License](#license)
 
 ---
